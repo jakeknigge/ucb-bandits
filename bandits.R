@@ -12,9 +12,9 @@ kl_bernoulli <- function(p,q){
       p*log(p/q) + (1-p)*log((1-p)/(1-q))
 }
 # algorithm parameters
-N_ROUNDS <- 2000
+N_ROUNDS <- 1000
 N_ARMS <- 3
-ALPHA <- 2.2
+ALPHA <- 2.05
 
 # bandit parameters
 mu_arms <- runif(N_ARMS, 0.4, 0.8)
