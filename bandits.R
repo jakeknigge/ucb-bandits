@@ -87,7 +87,7 @@ ggplot() +
       geom_line(aes(x = 1:N_ROUNDS, y = regret_pseudo, color = "pseudo regret")) +
       geom_step(aes(x = 1:N_ROUNDS, y = regret_bound, color = "upper bound"))  +
       geom_step(aes(x = 1:N_ROUNDS, y = regret_bound_lo, color = "lower bound"))  + 
-      labs(x = "rounds", y = "regret") +
+      labs(x = "rounds", y = "cumulative regret") +
       scale_color_manual(values = c("pseudo regret" = "purple", 
                                     "upper bound" = "red", 
                                     "lower bound" = "blue"),
