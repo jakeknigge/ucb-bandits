@@ -73,28 +73,26 @@ ggplot() + geom_point(aes(x = 1:N_ROUNDS, y = as.factor(arm_rounds))) +
 ggplot() + geom_bar(aes(as.factor(arm_rounds))) + labs(x = "rounds", y = "arms")
 
 # time series of estimated means of each arm
-ggplot() + geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,1])) +
-      geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,2]), color = "red") +
-      geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,3]), color = "blue") + 
-      labs(x = "rounds", y = "mean estimates")
+ggplot() + 
+      geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,1], color = "arm 1")) +
+      geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,2], color = "arm 2")) +
+      geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,3], color = "arm 3")) + 
+      labs(x = "rounds", y = "mean estimates") +
+      scale_color_manual(values=c("arm 1" = "black", "arm 2" = "red", "arm 3" = "blue"),
+                         name = "bandit arm") +
+      theme(legend.position="bottom")
 
 # time series of cumulative regret vs. bounds
-ggplot() + geom_line(aes(x = 1:N_ROUNDS, y = regret_pseudo), color = "green4") +
-      geom_step(aes(x = 1:N_ROUNDS, y = regret_bound), color = "red")  +
-      geom_step(aes(x = 1:N_ROUNDS, y = regret_bound_lo), color = "blue")  + 
-      labs(x = "rounds", y = "regret")
-
-# time series of UCBs
-# ggplot() + geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,1])) +
-#       geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,2]), color = "red")  +
-#       geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,3]), color = "blue") + 
-#       labs(x = "rounds", y = "UCB estimates")
-
-# time series of deviations of estimates from actuals
-# ggplot() + geom_step(aes(x=1:N_ROUNDS, y = mu_arms[1] - mu_hat_rounds[,1])) +
-#       geom_step(aes(x=1:N_ROUNDS, y = mu_arms[2] - mu_hat_rounds[,2]), color="red") +
-#       geom_step(aes(x=1:N_ROUNDS, y = mu_arms[3] - mu_hat_rounds[,3]), color="blue") + 
-#       labs(x = "rounds", y = "mean estimates deviations")
+ggplot() + 
+      geom_line(aes(x = 1:N_ROUNDS, y = regret_pseudo, color = "pseudo regret")) +
+      geom_step(aes(x = 1:N_ROUNDS, y = regret_bound, color = "upper bound"))  +
+      geom_step(aes(x = 1:N_ROUNDS, y = regret_bound_lo, color = "lower bound"))  + 
+      labs(x = "rounds", y = "regret") +
+      scale_color_manual(values = c("pseudo regret" = "purple", 
+                                    "upper bound" = "red", 
+                                    "lower bound" = "blue"),
+                         name = "regret measure") +
+      theme(legend.position="bottom")
 # ##################################################################################### #
 ## END OF SCRIPT ---------------------------------------------------------------------- #
 # ##################################################################################### #
