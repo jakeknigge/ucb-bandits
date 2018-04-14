@@ -11,7 +11,6 @@ set.seed(3)
 kl_bernoulli <- function(p,q){
       p*log(p/q) + (1-p)*log((1-p)/(1-q))
 }
-
 # algorithm parameters
 N_ROUNDS <- 2000
 N_ARMS <- 3
@@ -66,33 +65,36 @@ for(i in 1:N_ROUNDS){
       arm_rounds[i] <- arm_idx
 }
 
+# time series of selected arms
 ggplot() + geom_point(aes(x = 1:N_ROUNDS, y = as.factor(arm_rounds))) + 
       labs(x = "rounds", y = "arms")
 
+# bar chart of selected arms
 ggplot() + geom_bar(aes(as.factor(arm_rounds))) + labs(x = "rounds", y = "arms")
 
+# time series of estimated means of each arm
 ggplot() + geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,1])) +
       geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,2]), color = "red") +
       geom_step(aes(x = 1:N_ROUNDS, y = mu_hat_rounds[,3]), color = "blue") + 
       labs(x = "rounds", y = "mean estimates")
 
+# time series of cumulative regret vs. bounds
 ggplot() + geom_line(aes(x = 1:N_ROUNDS, y = regret_pseudo), color = "green4") +
       geom_step(aes(x = 1:N_ROUNDS, y = regret_bound), color = "red")  +
       geom_step(aes(x = 1:N_ROUNDS, y = regret_bound_lo), color = "blue")  + 
       labs(x = "rounds", y = "regret")
 
+# time series of UCBs
 # ggplot() + geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,1])) +
 #       geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,2]), color = "red")  +
 #       geom_step(aes(x = 1:N_ROUNDS, y = ucbs_rounds[,3]), color = "blue") + 
 #       labs(x = "rounds", y = "UCB estimates")
 
+# time series of deviations of estimates from actuals
 # ggplot() + geom_step(aes(x=1:N_ROUNDS, y = mu_arms[1] - mu_hat_rounds[,1])) +
 #       geom_step(aes(x=1:N_ROUNDS, y = mu_arms[2] - mu_hat_rounds[,2]), color="red") +
 #       geom_step(aes(x=1:N_ROUNDS, y = mu_arms[3] - mu_hat_rounds[,3]), color="blue") + 
 #       labs(x = "rounds", y = "mean estimates deviations")
-
-# ggplot() + geom_step(aes(x = 1:N_ROUNDS, y = arm_rounds))+ 
-#       labs(x = "rounds", y = "arms")
 # ##################################################################################### #
 ## END OF SCRIPT ---------------------------------------------------------------------- #
 # ##################################################################################### #
